@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 // import 'counter/counter_page.dart';
 // import 'guess/guess_page.dart';
+import 'drag_rect/CustomPainterDraggable.dart';
+import 'drag_rect/DynamicBoxPage.dart';
+import 'drag_rect/SectorPainter.dart';
 import 'muyu/muyu_page.dart';
-import 'video_crop_track/video_crop_track_page.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -20,7 +22,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const GuessPage(title:'猜数字'),
-      home:const VideoCropTrackPage()
+      // home:const CustomPainterDraggable()
+        home:  const SectorPainter(),
+
     );
   }
 }

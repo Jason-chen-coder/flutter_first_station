@@ -97,7 +97,7 @@ class VideoTrackWidgetState extends State<VideoTrackWidget>
   void initState() {
     super.initState();
     earSize = widget.style.earSize;
-
+    print('========init');
     ///最大只能选择[widget.maxSecond]，初始默认选择的时间
     duration = selectEndDur = widget.totalDuration.inSeconds > widget.maxSecond
         ? Duration(seconds: widget.maxSecond)

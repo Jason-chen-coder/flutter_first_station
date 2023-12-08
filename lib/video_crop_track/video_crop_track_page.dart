@@ -9,17 +9,8 @@ class VideoCropTrackPage extends StatefulWidget {
 }
 
 class _VideoCropTrackPageState extends State<VideoCropTrackPage> {
-  List<String> list = [
-    '图1',
-    '图2',
-    '图3',
-    '图4',
-    '图5',
-    '图6',
-    '图7',
-    '图8',
-    '图9',
-  ];
+  int num = 0;
+
   final Duration duration = Duration(minutes: 1);
   List<String> list2 = [
     '图1',
@@ -45,6 +36,20 @@ class _VideoCropTrackPageState extends State<VideoCropTrackPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Duration totalDuration  = Duration(minutes: 1);
+    List<String> list = [
+      '图1',
+      '图2',
+      '图3',
+      '图4',
+      '图5',
+      '图6',
+      '图7',
+      '图8',
+      '图9',
+    ];
+    GlobalKey<VideoTrackWidgetState> key1 = GlobalKey();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Flutter视频裁剪编辑的轨道UI'),
@@ -52,32 +57,56 @@ class _VideoCropTrackPageState extends State<VideoCropTrackPage> {
       body: Column(
         children: [
           SizedBox(height: 50),
-          Text('小于等于3分钟的视频展示'),
+          Text('小于等于3分钟的视频展示num${num}'),
           SizedBox(height: 8),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            child: VideoTrackWidget(
-              key: key1,
-              imgList: list,
-              totalDuration: duration,
-              onSelectDuration: (start, end) {
-                print('轨道1选择的时间段：$start ~ $end');
-              },
-              trackWidgetBuilder:
-                  (BuildContext context, String data, Size size) {
-                return Container(
-                  height: size.height,
-                  width: size.width,
-                  color: Colors.blueAccent,
-                  child: Center(
-                    child: Text(
-                      data,
-                      style: TextStyle(color: Colors.white),
-                    ),
+            width: double.infinity,
+            height: 100,
+            color: Colors.blue,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              children: [
+                // 开头左侧留白(时间线是居中显示的)
+                Container(
+                  color: Colors.orange,
+                  width:100,
+                ),
+                Container(
+                  color: Colors.red,
+                  width:900,
+                  child:Column(
+                    children: [
+                      VideoTrackWidget(
+                        key: key1,
+                        imgList: list,
+                        totalDuration: totalDuration,
+                        onSelectDuration: (start, end) {
+                          print('轨道1选择的时间段：$start ~ $end');
+                        },
+                        trackWidgetBuilder:
+                            (BuildContext context, String data, Size size) {
+                          return Container(
+                            height: size.height,
+                            width: size.width,
+                            color: Colors.blueAccent,
+                            child: Center(
+                              child: Text(
+                                data,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    ],
                   ),
-                );
-              },
-            ),
+                ),
+                Container(
+                  color: Colors.orange,
+                  width:100,
+                ),
+              ],),
           ),
           _timelineControl(key1),
           SizedBox(height: 50),
